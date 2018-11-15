@@ -49,7 +49,7 @@ Plugin 'VundleVim/Vundle.vim'
 " HTML & CSS & JSX
 	Plugin 'iloginow/vim-stylus'
 	Plugin 'alvan/vim-closetag'
-		let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js' "html autoclose tags enabled in *.jsx files
+		let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js,*.tsx' "html autoclose tags enabled in *.jsx files
 
 " LINTING
 	" vim 8 needed (async lint checker)
@@ -58,6 +58,9 @@ Plugin 'VundleVim/Vundle.vim'
 		let g:ale_lint_delay = 1500
 		let g:ale_typescript_tslint_executable = 'tslint'
 		let g:ale_set_highlights = 0
+		let b:ale_linters = {'typescript': ['tslint']}
+
+		" let g:ale_completion_enabled = 1
 		" let g:airline#extensions#ale#enabled = 1
 
 " TEXT EDITING
@@ -169,6 +172,12 @@ set hlsearch
 " VISUAL-BLOCK shortcut
 	map <Shift>v <S-v>
 
+" ALE & Tsu shortuts
+	nmap <silent> [e <Plug>(ale_previous_wrap)
+	nmap <silent> ]e <Plug>(ale_next_wrap)
+	nmap <silent> gd <Plug>(ale_go_to_definition)
+	autocmd FileType typescript nmap <silent><buffer> <Leader>rs <Plug>(TsuquyomiRenameSymbol)
+	 
 " FILETYPE RECOGNITIONs
 	augroup filetypedetect
 		au BufRead,BufNewFile *.tsx set filetype=typescript
@@ -218,7 +227,6 @@ set hlsearch
 " NERDTree
 	" open
 		nnoremap <Leader>nt :NERDTree<Enter>
-	" open at current file's location (mnemotic: this (file) nerd tree)
 		nnoremap <Leader>tnt :NERDTree %<Enter>
 
 " FILE-NAME SEARCH - CtrlP
@@ -425,3 +433,4 @@ set hlsearch
 					\ &ft == 'vimshell' ? 'VimShell' :
 					\ winwidth(0) > 60 ? lightline#mode() : ''
 	endfunction
+" ===========================
