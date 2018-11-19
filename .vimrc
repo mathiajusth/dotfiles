@@ -1,97 +1,78 @@
-" ===========================
-" Vundle - vim bundle manager
-" ===========================
-set nocompatible              " be iMproved, required
-" filetype off                  " required
+" =========
+" PLUGINS
+" =========
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+" INSTALL vim.plug
+	if empty(glob('~/.vim/autoload/plug.vim'))
+		silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+			\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+		autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	endif
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-"   Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-"   Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-"   Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-"   Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
+call plug#begin('~/.vim/plugged')
 
 " JavaScript
-	Plugin 'othree/yajs.vim'
-	Plugin 'othree/es.next.syntax.vim'
-	" Plugin 'pangloss/vim-javascript'
+	Plug 'othree/yajs.vim'
+	Plug 'othree/es.next.syntax.vim'
+	" Plug 'pangloss/vim-javascript'
 	"   let g:javascript_plugin_flow = 1
-	" Plugin 'isRuslan/vim-es6'
-	" Plugin 'mxw/vim-jsx'
+	" Plug 'isRuslan/vim-es6'
+	" Plug 'mxw/vim-jsx'
 		" let g:jsx_ext_required = 0
 
 " TypeScript
-	Plugin 'Quramy/tsuquyomi'
+	Plug 'Quramy/tsuquyomi'
 		let g:tsuquyomi_disable_quickfix = 1
-	Plugin 'leafgarland/typescript-vim'
-	Plugin 'Quramy/vim-js-pretty-template'
-	Plugin 'jason0x43/vim-js-indent'
+	Plug 'leafgarland/typescript-vim'
+	Plug 'Quramy/vim-js-pretty-template'
+	Plug 'jason0x43/vim-js-indent'
 
 " HTML & CSS & JSX
-	Plugin 'iloginow/vim-stylus'
-	Plugin 'alvan/vim-closetag'
-		let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js,*.tsx' "html autoclose tags enabled in *.jsx files
+	Plug 'iloginow/vim-stylus'
+	Plug 'alvan/vim-closetag'
+		let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js' "html autoclose tags enabled in *.jsx files
 
 " LINTING
 	" vim 8 needed (async lint checker)
-	Plugin 'w0rp/ale'
+	Plug 'w0rp/ale'
 		let g:ale_linter_aliases = {'javascript': 'typescript'}
 		let g:ale_lint_delay = 1500
 		let g:ale_typescript_tslint_executable = 'tslint'
 		let g:ale_set_highlights = 0
-		let b:ale_linters = {'typescript': ['tslint']}
-
-		" let g:ale_completion_enabled = 1
 		" let g:airline#extensions#ale#enabled = 1
 
 " TEXT EDITING
-	Plugin 'Valloric/YouCompleteMe'
+	Plug 'Valloric/YouCompleteMe'
 		let g:ycm_min_num_of_chars_for_completion = 1
 		let g:ycm_max_num_identifier_candidates = 10
 		let g:ycm_complete_in_comments = 1
 		let g:ycm_seed_identifiers_with_syntax = 0
 		let g:ycm_add_preview_to_completeopt = 1
 		let g:ycm_autoclose_preview_window_after_completion = 1
-	Plugin 'scrooloose/nerdcommenter'
+		let g:ycm_semantic_triggers = {
+				 \ 'elm' : ['.'],
+				 \}
+	Plug 'scrooloose/nerdcommenter'
 		let g:NERDSpaceDelims = 1
 		let g:NERDCommentEmptyLines = 0
 		let g:NERDDefaultAlign = 'left'
-	Plugin 'Chiel92/vim-autoformat'
-	Plugin 'kana/vim-submode'
+	Plug 'Chiel92/vim-autoformat'
+	Plug 'kana/vim-submode'
 		let g:submode_timeout = 0 "disable submode timeouts:
 		let g:submode_keep_leaving_key = 1 " don't consume submode-leaving key
-	Plugin 'tpope/vim-surround'
-	Plugin 'mattn/emmet-vim'
+	Plug 'tpope/vim-surround'
+	Plug 'mattn/emmet-vim'
 
 " CODEBASE MOVEMENT
-	Plugin 'scrooloose/nerdtree'
-	Plugin 'ctrlpvim/ctrlp.vim'
-	Plugin 'ggreer/the_silver_searcher'
-	Plugin 'mileszs/ack.vim'
+	Plug 'scrooloose/nerdtree'
+	Plug 'ctrlpvim/ctrlp.vim'
+	Plug 'ggreer/the_silver_searcher'
+	Plug 'mileszs/ack.vim'
 		let g:ackprg = 'ag --vimgrep'
 
 " GIT
-	Plugin 'tpope/vim-fugitive'
-	Plugin 'airblade/vim-gitgutter'
+	Plug 'tpope/vim-fugitive'
+	Plug 'airblade/vim-gitgutter'
 		let g:gitgutter_realtime = 1
 		let g:gitgutter_eager = 1
 		let g:gitgutter_highlight_lines = 0
@@ -99,18 +80,24 @@ Plugin 'VundleVim/Vundle.vim'
 
 " STYLE
 	" INSTALL https://github.com/powerline/fonts, sudo apt-get install fonts-powerline
-	Plugin 'altercation/vim-colors-solarized'
-	Plugin 'itchyny/lightline.vim'
+	Plug 'altercation/vim-colors-solarized'
+	Plug 'itchyny/lightline.vim'
 
-Plugin 'idris-hackers/idris-vim'
+Plug 'idris-hackers/idris-vim'
+Plug 'ElmCast/elm-vim'
+	let g:elm_format_autosave = 1
+" Plug 'shime/vim-livedown' " needs node & npm i -g livedown
+Plug 'iamcco/markdown-preview.vim'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-pandoc'
 
 " NOT USING ANYMORE
-	" Plugin 'jeetsukumaran/vim-indentwise'
-	Plugin 'ternjs/tern_for_vim'
-	" Plugin 'flowtype/vim-flow'
-	" Plugin 'universal-ctags/ctags'
+	" Plug 'jeetsukumaran/vim-indentwise'
+	Plug 'ternjs/tern_for_vim'
+	" Plug 'flowtype/vim-flow'
+	" Plug 'universal-ctags/ctags'
 	"LINTER synchronous
-		"Plugin 'vim-syntastic/syntastic'
+		"Plug 'vim-syntastic/syntastic'
 			"set statusline+=%#warningmsg#
 			"set statusline+=%{SyntasticStatuslineFlag()}
 			"set statusline+=%*
@@ -122,30 +109,20 @@ Plugin 'idris-hackers/idris-vim'
 			"let g:syntastic_javascript_checkers = ['eslint']
 			"let g:syntastic_javascript_eslint_exe = 'npm run lint --'
 	" statusline plugin
-		" Plugin 'vim-airline/vim-airline'
-		" Plugin 'vim-airline/vim-airline-themes'
+		" Plug 'vim-airline/vim-airline'
+		" Plug 'vim-airline/vim-airline-themes'
 		"   let g:airline_solarized_bg='dark'
 		"   let g:airline_theme = 'solarized'
+" Initialize plugin system
+call plug#end()
+" =========
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to use auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
 " =========
-" my config
+" MY CONFIG
 " =========
+filetype plugin indent on
+
 set tabstop=2								"tabsize = 2 spaces
 set shiftwidth=2
 " set expandtab
@@ -167,7 +144,7 @@ set hlsearch
 
 
 " unhighlights searched words after hitting enter
-	nnoremap <CR> :noh<CR><CR> 
+	nnoremap <CR> :noh<CR><CR>
 
 " VISUAL-BLOCK shortcut
 	map <Shift>v <S-v>
@@ -177,7 +154,7 @@ set hlsearch
 	nmap <silent> ]e <Plug>(ale_next_wrap)
 	nmap <silent> gd <Plug>(ale_go_to_definition)
 	autocmd FileType typescript nmap <silent><buffer> <Leader>rs <Plug>(TsuquyomiRenameSymbol)
-	 
+
 " FILETYPE RECOGNITIONs
 	augroup filetypedetect
 		au BufRead,BufNewFile *.tsx set filetype=typescript
@@ -227,6 +204,7 @@ set hlsearch
 " NERDTree
 	" open
 		nnoremap <Leader>nt :NERDTree<Enter>
+	" open at current file's location (mnemotic: this (file) nerd tree)
 		nnoremap <Leader>tnt :NERDTree %<Enter>
 
 " FILE-NAME SEARCH - CtrlP
@@ -335,102 +313,101 @@ set hlsearch
 	colorscheme solarized
 
 " STATUS-LINE
-	set laststatus=2
-	set noshowmode
-	let g:lightline = {
-		\ 	'colorscheme': 'solarized',
-		\ 	'mode_map': { 'c': 'NORMAL' },
-		\ 	'active': {
-		\ 	  'left': [['modified', 'filename', 'fugitive'], ['path']],
-		\			'right': [['lineinfo'], ['ale'], ['filetype']]
-		\ 	},  
-		\   'inactive': {
-		\     'left': [['modified', 'filename']],
-		\			'right': [['ale'], ['modified']]
-		\		},
-		\		'component_type': {
-		\			'ale': 'error',
-		\		},
-		\ 	'component_function': {
-		\ 	  'modified': 'LightLineModified',
-		\ 	  'readonly': 'LightLineReadonly',
-		\ 	  'fugitive': 'LightLineFugitive',
-		\ 	  'filename': 'LightLineFilename',
-		\ 	  'fileformat': 'LightLineFileformat',
-		\ 	  'filetype': 'LightLineFiletype',
-		\ 	  'fileencoding': 'LightLineFileencoding',
-		\ 	  'mode': 'LightLineMode',
-		\			'path': 'LightLinePath',
-		\			'ale': 'LightLineALE',
-		\ 	},
-		\ 	'subseparator': { 'left': "|", 'right': "|" },
-		\ 	'separator': { 'left': "", 'right': "" }
-		\ }
+		set laststatus=2
+		set noshowmode
+		let g:lightline = {
+			\ 	'colorscheme': 'solarized',
+			\ 	'mode_map': { 'c': 'NORMAL' },
+			\ 	'active': {
+			\ 	  'left': [['modified', 'filename', 'fugitive'], ['path']],
+			\			'right': [['lineinfo'], ['ale'], ['filetype']]
+			\ 	},
+			\   'inactive': {
+			\     'left': [['modified', 'filename']],
+			\			'right': [['ale'], ['modified']]
+			\		},
+			\		'component_type': {
+			\			'ale': 'error',
+			\		},
+			\ 	'component_function': {
+			\ 	  'modified': 'LightLineModified',
+			\ 	  'readonly': 'LightLineReadonly',
+			\ 	  'fugitive': 'LightLineFugitive',
+			\ 	  'filename': 'LightLineFilename',
+			\ 	  'fileformat': 'LightLineFileformat',
+			\ 	  'filetype': 'LightLineFiletype',
+			\ 	  'fileencoding': 'LightLineFileencoding',
+			\ 	  'mode': 'LightLineMode',
+			\			'path': 'LightLinePath',
+			\			'ale': 'LightLineALE',
+			\ 	},
+			\ 	'subseparator': { 'left': "|", 'right': "|" },
+			\ 	'separator': { 'left': "", 'right': "" }
+			\ }
 
-	function! LightLineALE()
-		let buf = bufnr('%')
-		let list = ale#engine#GetLoclist(buf)
-		return "Errors: ".len(list)
-	endfunction
+		function! LightLineALE()
+			let buf = bufnr('%')
+			let list = ale#engine#GetLoclist(buf)
+			return "Errors: ".len(list)
+		endfunction
 
-	function! LightLinePath()
-		return winwidth(0) > 140 ? expand('%') : ''
-	endfunction
+		function! LightLinePath()
+			return winwidth(0) > 140 ? expand('%') : ''
+		endfunction
 
-	function! LightLineModified()
-		return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-	endfunction
+		function! LightLineModified()
+			return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+		endfunction
 
-	function! LightLineReadonly()
-		return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '⭤' : ''
-	endfunction
+		function! LightLineReadonly()
+			return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '⭤' : ''
+		endfunction
 
-	function! LightLineFilename()
-		let fname = expand('%:t')
-		if fname == 'ControlP' || fname =~ 'NERD_tree'
+		function! LightLineFilename()
+			let fname = expand('%:t')
+			if fname == 'ControlP' || fname =~ 'NERD_tree'
+				return ''
+			endif
+			let modifiedPrefix = ''
+			let modifiedSuffix = ''
+			return ('' != LightLineModified() ? modifiedPrefix : '') .
+						\ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+						\ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+						\  &ft == 'unite' ? unite#get_status_string() :
+						\  &ft == 'vimshell' ? vimshell#get_status_string() :
+						\ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+						\ ('' != LightLineModified() ? modifiedSuffix : '')
+		endfunction
+
+		function! LightLineFugitive()
+			if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
+				let _ = fugitive#head()
+				return winwidth(0) > 90 && strlen(_) ? "\ue0a0 "._ : ''
+			endif
 			return ''
-		endif
-		let modifiedPrefix = ''
-		let modifiedSuffix = ''
-		return ('' != LightLineModified() ? modifiedPrefix : '') .
-					\ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-					\ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-					\  &ft == 'unite' ? unite#get_status_string() :
-					\  &ft == 'vimshell' ? vimshell#get_status_string() :
-					\ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-					\ ('' != LightLineModified() ? modifiedSuffix : '')
-	endfunction
+		endfunction
 
-	function! LightLineFugitive()
-		if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
-			let _ = fugitive#head()
-			return winwidth(0) > 90 && strlen(_) ? "\ue0a0 "._ : ''
-		endif
-		return ''
-	endfunction
+		function! LightLineFileformat()
+			return winwidth(0) > 70 ? &fileformat : ''
+		endfunction
 
-	function! LightLineFileformat()
-		return winwidth(0) > 70 ? &fileformat : ''
-	endfunction
+		function! LightLineFiletype()
+			return winwidth(0) > 90 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+		endfunction
 
-	function! LightLineFiletype()
-		return winwidth(0) > 90 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-	endfunction
+		function! LightLineFileencoding()
+			return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+		endfunction
 
-	function! LightLineFileencoding()
-		return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-	endfunction
-
-	function! LightLineMode()
-		let fname = expand('%:t')
-		return fname == '__Tagbar__' ? 'Tagbar' :
-					\ fname == 'ControlP' ? 'CtrlP' :
-					\ fname == '__Gundo__' ? 'Gundo' :
-					\ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-					\ fname =~ 'NERD_tree' ? 'NERDTree' :
-					\ &ft == 'unite' ? 'Unite' :
-					\ &ft == 'vimfiler' ? 'VimFiler' :
-					\ &ft == 'vimshell' ? 'VimShell' :
-					\ winwidth(0) > 60 ? lightline#mode() : ''
-	endfunction
-" ===========================
+		function! LightLineMode()
+			let fname = expand('%:t')
+			return fname == '__Tagbar__' ? 'Tagbar' :
+						\ fname == 'ControlP' ? 'CtrlP' :
+						\ fname == '__Gundo__' ? 'Gundo' :
+						\ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+						\ fname =~ 'NERD_tree' ? 'NERDTree' :
+						\ &ft == 'unite' ? 'Unite' :
+						\ &ft == 'vimfiler' ? 'VimFiler' :
+						\ &ft == 'vimshell' ? 'VimShell' :
+						\ winwidth(0) > 60 ? lightline#mode() : ''
+		endfunction
