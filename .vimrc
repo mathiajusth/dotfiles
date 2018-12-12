@@ -14,6 +14,9 @@ call plug#begin('~/.vim/plugged')
 		Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
 		Plug 'Shougo/vimproc.vim', {'do': 'make'}
 		Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
+			" show type anotations in omnicompletion
+			let g:necoghc_enable_detailed_browse = 1
+		Plug 'itchyny/vim-haskell-indent'
 
 	" Idris
 		Plug 'idris-hackers/idris-vim'
@@ -55,8 +58,8 @@ call plug#begin('~/.vim/plugged')
 
 	" SNIPPETS
 		Plug 'SirVer/ultisnips'
-			let g:UltiSnipsExpandTrigger="<C-i>"
-			let g:UltiSnipsJumpForwardTrigger="<C-i>"
+			let g:UltiSnipsExpandTrigger="<Tab>"
+			let g:UltiSnipsJumpForwardTrigger="<Tab>"
 			" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 	" TEXT EDITING
 		" Plug 'Valloric/YouCompleteMe'
@@ -69,10 +72,17 @@ call plug#begin('~/.vim/plugged')
 		"   let g:ycm_autoclose_preview_window_after_completion = 1
 		"   let g:ycm_semantic_triggers = {'haskell' : ['.'], 'elm' : ['.']}
 		Plug 'Shougo/deoplete.nvim' " needs sudo apt-get install python3-pip | pip3 install --user pynvim
+			let g:haskellmode_completion_ghc = 0
 			let g:deoplete#enable_at_startup = 1
 			let g:deoplete#ignore_case = 1
-			let g:deoplete#max_list = 7
-			let g:haskellmode_completion_ghc = 0
+			let g:deoplete#max_list = 5 
+
+			" deoplete.vim needs these additional plugins
+				Plug 'roxma/nvim-yarp'
+				Plug 'roxma/vim-hug-neovim-rpc'
+
+			" tab-completeion
+				inoremap <expr>` pumvisible() ? "\<c-n>" : "\`"
 
 			" omnifuncs
 				augroup omnifuncs
@@ -86,13 +96,6 @@ call plug#begin('~/.vim/plugged')
 						let g:tern_show_signature_in_pum = 1
 						autocmd FileType javascript setlocal omnifunc=tern#Complete
 					endif
-
-			" tab-completeion
-				inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-			" deoplete.vim needs these additional plugins
-				Plug 'roxma/nvim-yarp'
-				Plug 'roxma/vim-hug-neovim-rpc'
 
 		Plug 'scrooloose/nerdcommenter'
 			let g:NERDSpaceDelims = 1
