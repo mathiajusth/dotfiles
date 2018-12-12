@@ -10,110 +10,151 @@
 	endif
 
 call plug#begin('~/.vim/plugged')
+	" Haskell
+		Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
+		Plug 'Shougo/vimproc.vim', {'do': 'make'}
+		Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 
-" JavaScript
-	Plug 'othree/yajs.vim'
-	Plug 'othree/es.next.syntax.vim'
-	" Plug 'pangloss/vim-javascript'
-	"   let g:javascript_plugin_flow = 1
-	" Plug 'isRuslan/vim-es6'
-	" Plug 'mxw/vim-jsx'
-		" let g:jsx_ext_required = 0
+	" Idris
+		Plug 'idris-hackers/idris-vim'
 
-" TypeScript
-	Plug 'Quramy/tsuquyomi'
-		let g:tsuquyomi_disable_quickfix = 1
-	Plug 'leafgarland/typescript-vim'
-	Plug 'Quramy/vim-js-pretty-template'
-	Plug 'jason0x43/vim-js-indent'
+	" Elm
+		Plug 'ElmCast/elm-vim'
+		let g:elm_format_autosave = 1
 
-" HTML & CSS & JSX
-	Plug 'iloginow/vim-stylus'
-	Plug 'alvan/vim-closetag'
-		let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js' "html autoclose tags enabled in *.jsx files
+	" JavaScript
+		Plug 'othree/yajs.vim'
+		Plug 'othree/es.next.syntax.vim'
+		" Plug 'pangloss/vim-javascript'
+		"   let g:javascript_plugin_flow = 1
+		" Plug 'isRuslan/vim-es6'
+		" Plug 'mxw/vim-jsx'
+			" let g:jsx_ext_required = 0
 
-" LINTING
-	" vim 8 needed (async lint checker)
-	Plug 'w0rp/ale'
-		let g:ale_linter_aliases = {'javascript': 'typescript'}
-		let g:ale_lint_delay = 1500
-		let g:ale_typescript_tslint_executable = 'tslint'
-		let g:ale_set_highlights = 0
-		" let g:airline#extensions#ale#enabled = 1
+	" TypeScript
+		Plug 'Quramy/tsuquyomi'
+			let g:tsuquyomi_disable_quickfix = 1
+		Plug 'leafgarland/typescript-vim'
+		Plug 'Quramy/vim-js-pretty-template'
+		Plug 'jason0x43/vim-js-indent'
 
-" TEXT EDITING
-	Plug 'Valloric/YouCompleteMe'
-		let g:ycm_min_num_of_chars_for_completion = 1
-		let g:ycm_max_num_identifier_candidates = 10
-		let g:ycm_complete_in_comments = 1
-		let g:ycm_seed_identifiers_with_syntax = 0
-		let g:ycm_add_preview_to_completeopt = 1
-		let g:ycm_autoclose_preview_window_after_completion = 1
-		let g:ycm_semantic_triggers = {
-				 \ 'elm' : ['.'],
-				 \}
-	Plug 'scrooloose/nerdcommenter'
-		let g:NERDSpaceDelims = 1
-		let g:NERDCommentEmptyLines = 0
-		let g:NERDDefaultAlign = 'left'
-	Plug 'Chiel92/vim-autoformat'
-	Plug 'kana/vim-submode'
-		let g:submode_timeout = 0 "disable submode timeouts:
-		let g:submode_keep_leaving_key = 1 " don't consume submode-leaving key
-	Plug 'tpope/vim-surround'
-	Plug 'mattn/emmet-vim'
+	" HTML & CSS & JSX
+		Plug 'iloginow/vim-stylus'
+		Plug 'alvan/vim-closetag'
+			let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js' "html autoclose tags enabled in *.jsx files
 
-" CODEBASE MOVEMENT
-	Plug 'scrooloose/nerdtree'
-	Plug 'ctrlpvim/ctrlp.vim'
-	Plug 'ggreer/the_silver_searcher'
-	Plug 'mileszs/ack.vim'
-		let g:ackprg = 'ag --vimgrep'
+	" LINTING
+		" vim 8 needed (async lint checker)
+		Plug 'w0rp/ale'
+			let g:ale_linter_aliases = {'javascript': 'typescript'}
+			let g:ale_lint_delay = 1500
+			let g:ale_typescript_tslint_executable = 'tslint'
+			let g:ale_set_highlights = 0
+			let b:ale_linters = {'typescript': ['tslint']}
+			" let g:airline#extensions#ale#enabled = 1
 
-" GIT
-	Plug 'tpope/vim-fugitive'
-	Plug 'airblade/vim-gitgutter'
-		let g:gitgutter_realtime = 1
-		let g:gitgutter_eager = 1
-		let g:gitgutter_highlight_lines = 0
-		let g:gitgutter_grep_command = 'ag'
+	" SNIPPETS
+		Plug 'SirVer/ultisnips'
+			let g:UltiSnipsExpandTrigger="<C-i>"
+			let g:UltiSnipsJumpForwardTrigger="<C-i>"
+			" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+	" TEXT EDITING
+		" Plug 'Valloric/YouCompleteMe'
+		"   " NEEDs INSTALLATION -> CHECK THIS issue for usage with vim.plug  https://github.com/Valloric/YouCompleteMe/issues/2934
+		"   let g:ycm_min_num_of_chars_for_completion = 1
+		"   let g:ycm_max_num_identifier_candidates = 10
+		"   let g:ycm_complete_in_comments = 1
+		"   let g:ycm_seed_identifiers_with_syntax = 0
+		"   let g:ycm_add_preview_to_completeopt = 1
+		"   let g:ycm_autoclose_preview_window_after_completion = 1
+		"   let g:ycm_semantic_triggers = {'haskell' : ['.'], 'elm' : ['.']}
+		Plug 'Shougo/deoplete.nvim' " needs sudo apt-get install python3-pip | pip3 install --user pynvim
+			let g:deoplete#enable_at_startup = 1
+			let g:deoplete#ignore_case = 1
+			let g:deoplete#max_list = 7
+			let g:haskellmode_completion_ghc = 0
 
-" STYLE
-	" INSTALL https://github.com/powerline/fonts, sudo apt-get install fonts-powerline
-	Plug 'altercation/vim-colors-solarized'
-	Plug 'itchyny/lightline.vim'
+			" omnifuncs
+				augroup omnifuncs
+					autocmd!
+					autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+					autocmd FileType typescript setlocal omnifunc=tsuquyomi#complete
+				augroup end
+				" tern
+					if exists('g:plugs["tern_for_vim"]')
+						let g:tern_show_argument_hints = 'on_hold'
+						let g:tern_show_signature_in_pum = 1
+						autocmd FileType javascript setlocal omnifunc=tern#Complete
+					endif
 
-Plug 'idris-hackers/idris-vim'
-Plug 'ElmCast/elm-vim'
-	let g:elm_format_autosave = 1
-" Plug 'shime/vim-livedown' " needs node & npm i -g livedown
-Plug 'iamcco/markdown-preview.vim'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'vim-pandoc/vim-pandoc'
+			" tab-completeion
+				inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-" NOT USING ANYMORE
-	" Plug 'jeetsukumaran/vim-indentwise'
-	Plug 'ternjs/tern_for_vim'
-	" Plug 'flowtype/vim-flow'
-	" Plug 'universal-ctags/ctags'
-	"LINTER synchronous
-		"Plug 'vim-syntastic/syntastic'
-			"set statusline+=%#warningmsg#
-			"set statusline+=%{SyntasticStatuslineFlag()}
-			"set statusline+=%*
+			" deoplete.vim needs these additional plugins
+				Plug 'roxma/nvim-yarp'
+				Plug 'roxma/vim-hug-neovim-rpc'
 
-			"let g:syntastic_always_populate_loc_list = 1
-			"let g:syntastic_auto_loc_list = 1
-			"let g:syntastic_check_on_open = 1
-			"let g:syntastic_check_on_wq = 0
-			"let g:syntastic_javascript_checkers = ['eslint']
-			"let g:syntastic_javascript_eslint_exe = 'npm run lint --'
-	" statusline plugin
-		" Plug 'vim-airline/vim-airline'
-		" Plug 'vim-airline/vim-airline-themes'
-		"   let g:airline_solarized_bg='dark'
-		"   let g:airline_theme = 'solarized'
-" Initialize plugin system
+		Plug 'scrooloose/nerdcommenter'
+			let g:NERDSpaceDelims = 1
+			let g:NERDCommentEmptyLines = 0
+			let g:NERDDefaultAlign = 'left'
+		Plug 'Chiel92/vim-autoformat'
+		Plug 'kana/vim-submode'
+			let g:submode_timeout = 0 "disable submode timeouts:
+			let g:submode_keep_leaving_key = 1 " don't consume submode-leaving key
+		Plug 'tpope/vim-surround'
+		Plug 'mattn/emmet-vim'
+
+	" CODEBASE MOVEMENT
+		Plug 'scrooloose/nerdtree'
+		Plug 'ctrlpvim/ctrlp.vim'
+		Plug 'ggreer/the_silver_searcher'
+		Plug 'mileszs/ack.vim'
+			let g:ackprg = 'ag --vimgrep'
+
+	" GIT
+		Plug 'tpope/vim-fugitive'
+		Plug 'airblade/vim-gitgutter'
+			let g:gitgutter_realtime = 1
+			let g:gitgutter_eager = 1
+			let g:gitgutter_highlight_lines = 0
+			let g:gitgutter_grep_command = 'ag'
+
+	" STYLE
+		" INSTALL https://github.com/powerline/fonts, sudo apt-get install fonts-powerline
+		Plug 'altercation/vim-colors-solarized'
+		Plug 'itchyny/lightline.vim'
+
+	"Markdown
+		Plug 'iamcco/markdown-preview.vim'
+		Plug 'vim-pandoc/vim-pandoc-syntax'
+		Plug 'vim-pandoc/vim-pandoc'
+		" markdown preview
+		" Plug 'shime/vim-livedown' " needs node & npm i -g livedown
+
+	" NOT USING ANYMORE
+		" Plug 'jeetsukumaran/vim-indentwise'
+		Plug 'ternjs/tern_for_vim'
+		" Plug 'flowtype/vim-flow'
+		" Plug 'universal-ctags/ctags'
+		"LINTER synchronous
+			"Plug 'vim-syntastic/syntastic'
+				"set statusline+=%#warningmsg#
+				"set statusline+=%{SyntasticStatuslineFlag()}
+				"set statusline+=%*
+
+				"let g:syntastic_always_populate_loc_list = 1
+				"let g:syntastic_auto_loc_list = 1
+				"let g:syntastic_check_on_open = 1
+				"let g:syntastic_check_on_wq = 0
+				"let g:syntastic_javascript_checkers = ['eslint']
+				"let g:syntastic_javascript_eslint_exe = 'npm run lint --'
+		" statusline plugin
+			" Plug 'vim-airline/vim-airline'
+			" Plug 'vim-airline/vim-airline-themes'
+			"   let g:airline_solarized_bg='dark'
+			"   let g:airline_theme = 'solarized'
+	" Initialize plugin system
 call plug#end()
 " =========
 
@@ -121,33 +162,35 @@ call plug#end()
 " =========
 " MY CONFIG
 " =========
-filetype plugin indent on
+" Others
+	filetype plugin indent on
 
-set tabstop=2								"tabsize = 2 spaces
-set shiftwidth=2
-" set expandtab
+	set tabstop=2								"tabsize = 2 spaces
+	set shiftwidth=2
+	" set expandtab
 
-set nu 											"line numbers
-set nowrap
-syntax on										"syntax highlighting
-" set conceallevel=1
-set updatetime=250
+	set nu 											"line numbers
+	set nowrap
+	syntax on										"syntax highlighting
+	" set conceallevel=1
+	set updatetime=250
 
-let mapleader = " "
-" let maplocalleader = ""
+	let mapleader = " "
+	" let maplocalleader = ""
 
-set fdm=indent 								"sets folding blocks base on indentation
-"autocmd VimEnter * :execute "normal zR" "unfolds automatic indent folds at vim startup
-"
-set hlsearch
+	set fdm=indent 								"sets folding blocks base on indentation
+	"autocmd VimEnter * :execute "normal zR" "unfolds automatic indent folds at vim startup
+	"
+	set hlsearch
 
+	" yank file path
+	noremap yfp :let @" = expand("%")<CR>
 
+	" unhighlights searched words after hitting enter
+		nnoremap <CR> :noh<CR><CR>
 
-" unhighlights searched words after hitting enter
-	nnoremap <CR> :noh<CR><CR>
-
-" VISUAL-BLOCK shortcut
-	map <Shift>v <S-v>
+	" VISUAL-BLOCK shortcut
+		map <Shift>v <S-v>
 
 " ALE & Tsu shortuts
 	nmap <silent> [e <Plug>(ale_previous_wrap)
