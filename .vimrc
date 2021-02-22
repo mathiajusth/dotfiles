@@ -210,9 +210,13 @@
 
   " Tsu & ALE 
     autocmd FileType typescript nmap <silent><buffer> <Leader>rs <Plug>(TsuquyomiRenameSymbol)
-    nmap <silent> [e <Plug>(ale_previous_wrap)
     nmap <silent> ]e <Plug>(ale_next_wrap)
+    nmap <silent> [e <Plug>(ale_previous_wrap)
     nmap <silent> gd <Plug>(ale_go_to_definition)
+    nnoremap <leader>d :ALEDetail<CR>zR
+
+    nmap <silent> <Leader>ej <Plug>(ale_next_wrap)
+    nmap <silent> <Leader>ek <Plug>(ale_previous_wrap)
     nnoremap <leader>d :ALEDetail<CR>zR
 
   " Snip
@@ -223,6 +227,9 @@
   " NERDCommenter
     nmap <Leader>' <Leader>c<Space>
     vmap <Leader>' <Leader>c<Space>
+
+    nmap <Leader>c <Leader>c<Space>
+    vmap <Leader>c <Leader>c<Space>
 
   " NERDTree
     nnoremap <Leader>nt :NERDTree<Enter>		" open

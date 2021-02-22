@@ -117,5 +117,51 @@ if ! shopt -oq posix; then
 fi
 
 
-#my config
+###my config
 alias react='git clone git@github.com:mathiajusth/template-react.git'
+alias cdw='cd ~/programming/gwi'
+alias cdr='cd ~/programming/gwi/research-ui/app'
+alias cdp='cd ~/programming/gwi/panel-ui/app'
+alias vpn='sudo openvpn --config ~/programming/gwi/openvpn/gwi-udp.ovpn'
+alias vpntcp='sudo openvpn --config ~/programming/gwi/openvpn/gwi-tcp.ovpn'
+# vpn () {
+  # old script
+  # sudo ~/programming/gwi/docs/scripts/docker-vpn-client.sh stop mledenyi@globalwebindex.com ledoizmus Hyp3r-25-800xSIL
+  # sudo ~/programming/gwi/docs/scripts/docker-vpn-client.sh start mledenyi@globalwebindex.com ledoizmus Hyp3r-25-800xSIL
+# }
+
+## DRONE
+export DRONE_SERVER=https://drone.in.globalwebindex.com
+export DRONE_TOKEN=ORvYYBaU7w9V683URw88Js72t0fi7Uxa
+
+dt () {
+  drone build promote GlobalWebIndex/research-ui "$1" testing
+}
+
+ds () {
+  drone build promote GlobalWebIndex/research-ui "$1" staging
+}
+
+dp () {
+  drone build promote GlobalWebIndex/research-ui "$1" production
+}
+# alias dp="drone build promote GlobalWebIndex/research-ui $1 production"
+
+
+# add Cabal's bin directory to the executable search PATH if it exists
+if [ -d "$HOME/.cabal/bin" ] ; then
+    PATH="$HOME/.cabal/bin:$PATH"
+fi
+export PATH="/home/mathia/.yarn/bin:/home/mathia/.local/bin/stack:~/.cabal/bin:$PATH"
+
+eval `dircolors ~/gnome-terminal-colors-solarized/dircolors`
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+source <(kubectl completion bash)
+
+# OPAM configuration
+. /home/mathia/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+
+
