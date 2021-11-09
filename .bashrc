@@ -122,6 +122,7 @@ alias react='git clone git@github.com:mathiajusth/template-react.git'
 alias cdw='cd ~/programming/gwi'
 alias cdr='cd ~/programming/gwi/research-ui/app'
 alias cdp='cd ~/programming/gwi/panel-ui/app'
+alias cdl='cd ~/programming/elm/lang-in-elm'
 alias vpn='sudo openvpn --config ~/programming/gwi/openvpn/gwi-udp.ovpn'
 alias vpntcp='sudo openvpn --config ~/programming/gwi/openvpn/gwi-tcp.ovpn'
 # vpn () {
@@ -131,7 +132,7 @@ alias vpntcp='sudo openvpn --config ~/programming/gwi/openvpn/gwi-tcp.ovpn'
 # }
 
 ## DRONE
-export DRONE_SERVER=https://drone.in.globalwebindex.com
+export DRONE_SERVER=https://drone2.in.globalwebindex.com
 export DRONE_TOKEN=ORvYYBaU7w9V683URw88Js72t0fi7Uxa
 
 dt () {
@@ -145,8 +146,26 @@ ds () {
 dp () {
   drone build promote GlobalWebIndex/research-ui "$1" production
 }
-# alias dp="drone build promote GlobalWebIndex/research-ui $1 production"
 
+pds () {
+  drone build promote GlobalWebIndex/panel-ui "$1" staging
+}
+
+pdp () {
+  drone build promote GlobalWebIndex/panel-ui "$1" production
+}
+
+grepelm () {
+  grep --include=*.elm -r "$1" . 
+}
+
+replace () {
+  grep --include=*."$1" -r -l "$2" . | xargs sed -i "s/$2/$3/g"
+}
+
+replaceelm () {
+  grep --include=*.elm -r -l "$1" . | xargs sed -i "s/$1/$2/g"
+}
 
 # add Cabal's bin directory to the executable search PATH if it exists
 if [ -d "$HOME/.cabal/bin" ] ; then
@@ -163,5 +182,3 @@ source <(kubectl completion bash)
 
 # OPAM configuration
 . /home/mathia/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-
-
