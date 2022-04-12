@@ -119,12 +119,12 @@ fi
 
 ###my config
 alias react='git clone git@github.com:mathiajusth/template-react.git'
-alias cdw='cd ~/programming/gwi'
-alias cdr='cd ~/programming/gwi/research-ui/app'
-alias cdp='cd ~/programming/gwi/panel-ui/app'
-alias cdl='cd ~/programming/elm/lang-in-elm'
+alias cdw='cd ~/GWI'
+alias cdr='cd ~/GWI/research-ui/app'
+alias cdp='cd ~/GWI/panel-ui/app'
 alias vpn='sudo openvpn --config ~/programming/gwi/openvpn/gwi-udp.ovpn'
 alias vpntcp='sudo openvpn --config ~/programming/gwi/openvpn/gwi-tcp.ovpn'
+
 # vpn () {
   # old script
   # sudo ~/programming/gwi/docs/scripts/docker-vpn-client.sh stop mledenyi@globalwebindex.com ledoizmus Hyp3r-25-800xSIL
@@ -156,7 +156,7 @@ pdp () {
 }
 
 grepelm () {
-  grep --include=*.elm -r "$1" . 
+  grep -r "$1" --include=*.elm .
 }
 
 replace () {
@@ -165,6 +165,10 @@ replace () {
 
 replaceelm () {
   grep --include=*.elm -r -l "$1" . | xargs sed -i "s/$1/$2/g"
+}
+
+grepitravel () {
+  grep -r "$1" --exclude-dir={target,frontend-dev,frontend-dev-build,.git,elm-stuff,frontend-build,node_modules} .
 }
 
 # add Cabal's bin directory to the executable search PATH if it exists
@@ -182,3 +186,7 @@ source <(kubectl completion bash)
 
 # OPAM configuration
 . /home/mathia/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+
+
+# add yarn-global to path
+export PATH=~/.npm-global/bin:$PATH # from npm global permission fix: https://stackoverflow.com/questions/33725639/npm-install-g-less-does-not-work-eacces-permission-denied/40905762#40905762

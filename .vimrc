@@ -54,8 +54,9 @@
         Plug 'jason0x43/vim-js-indent'
 
       " Markdown
-        Plug 'iamcco/markdown-preview.vim'
-        Plug 'iamcco/mathjax-support-for-mkdp'
+        Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+        " Plug 'iamcco/markdown-preview.vim'
+        " Plug 'iamcco/mathjax-support-for-mkdp'
 				" , { 'do': { -> mkdp#util#install() } }
         Plug 'vim-pandoc/vim-pandoc-syntax'
         Plug 'vim-pandoc/vim-pandoc'
@@ -190,8 +191,8 @@
     set nu 											" line numbers
     set nowrap 									" don't wrap text
     syntax on										" syntax highlighting
-    set background=light
-    colorscheme solarized
+    " set background=light
+    " colorscheme solarized
     set hlsearch
     set updatetime=250
     let mapleader = " "
@@ -260,6 +261,7 @@
       au BufRead,BufNewFile *.tsx set filetype=typescript
       au BufRead,BufNewFile *.ts set filetype=typescript
       au BufRead,BufNewFile *.styl set filetype=stylus
+      au BufRead,BufNewFile .env.* set filetype=sh
     augroup END
     au! BufNewFile,BufRead *.js.flow setf javascript " .js.flow is considered .js
 
