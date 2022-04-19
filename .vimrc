@@ -13,6 +13,10 @@
 
         Plug 'editorconfig/editorconfig-vim'
 
+      " Session
+        Plug 'xolox/vim-session'
+        Plug 'xolox/vim-misc'
+
       " Haskell
         Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
         Plug 'Shougo/vimproc.vim', {'do': 'make'}
@@ -191,6 +195,10 @@
     set nu 											" line numbers
     set nowrap 									" don't wrap text
     syntax on										" syntax highlighting
+    " how to show space characters (turn on by :set list)
+    " https://stackoverflow.com/questions/1675688/make-vim-show-all-white-spaces-as-a-character
+    set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+
     " set background=light
     " colorscheme solarized
     set hlsearch
