@@ -61,7 +61,9 @@ return packer.startup(function(use)
 
       use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
-      
+      use 'airblade/vim-gitgutter'
+
+      use {'jwoudenberg/elm-pair', rtp = 'editor-integrations/neovim'}
       
   -- === Yura's plugins ===
       ---- fonts

@@ -81,6 +81,7 @@ vim.api.nvim_set_keymap('n','gd','<Plug>(coc-definition)',{})
 vim.api.nvim_set_keymap('n','gr','<Plug>(coc-references)',{})
 vim.api.nvim_set_keymap('n','gi','<Plug>(coc-implementation)',{})
 vim.api.nvim_set_keymap('n','gy','<Plug>(coc-type-definition)',{})
+vim.api.nvim_set_keymap('n','<leader>k',':call CocActionAsync(\'doHover\')<Enter>',{})
 vim.cmd( -- use <tab> for trigger completion and navigate to the next complete item
   [[
     function! s:check_back_space() abort
@@ -95,16 +96,20 @@ vim.cmd( -- use <tab> for trigger completion and navigate to the next complete i
   ]]
 )
 vim.api.nvim_set_keymap('n','<leader>qf','<Plug>(coc-fix-current)',{})
-vim.api.nvim_set_keymap('n','K',':call CocActionAsync(\'doHover\')<Enter>',{})
 -- TELESCOPE
-vim.api.nvim_set_keymap('n','<leader>ff','<cmd>Telescope find_files<cr>',{noremap = true})
-vim.api.nvim_set_keymap('n','<leader>fg','<cmd>Telescope live_grep<cr>',{noremap = true})
+vim.api.nvim_set_keymap('n','<leader>s','<cmd>Telescope find_files<cr>',{noremap = true})
+vim.api.nvim_set_keymap('n','<leader>g','<cmd>Telescope live_grep<cr>',{noremap = true})
 vim.api.nvim_set_keymap('n','<leader>fb','<cmd>Telescope buffers<cr>',{noremap = true})
 vim.api.nvim_set_keymap('n','<leader>fh','<cmd>Telescope help_tags<cr>',{noremap = true})
 
+-- GitGutter
+vim.api.nvim_set_keymap('n','<leader>gs',':GitGutterStageHunk<Enter>',{noremap = true})
+vim.api.nvim_set_keymap('n','<leader>gu',':GitGutterUnstageHunk<Enter>',{noremap = true})
+vim.api.nvim_set_keymap('n','<leader>gp',':GitGutterPreviewHunk<Enter>',{noremap = true})
+
 -- PLUGINS
 require('plug')
-require("nvim-tree").setup({
+require('nvim-tree').setup({
   filters = {
     dotfiles = true,
   },
