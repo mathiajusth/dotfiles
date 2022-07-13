@@ -8,8 +8,12 @@ vim.g.localleader = ","
 
 -- MISC ??
 vim.opt.updatetime = 250              -- after X milliseconds of not typing swp file is created
+
 vim.opt.foldmethod = "indent"         
+vim.opt.foldenable = false
+
 vim.api.nvim_set_option("clipboard","unnamed") -- copy to system clipboard
+
 vim.api.nvim_set_keymap('n', '<leader>nt', ':NvimTreeToggle<Enter>', {}) -- nvim-tree
 -- vim.api.nvim_set_keymap('n', '<leader>nt', ':NERDTree<Enter>', {})    -- nerd-tree
 
@@ -72,6 +76,32 @@ vim.cmd('let g:NERDSpaceDelims = 1')
 -- COC
 vim.api.nvim_set_keymap('n','[e','<Plug>(coc-diagnostic-prev)',{})
 vim.api.nvim_set_keymap('n',']e','<Plug>(coc-diagnostic-next)',{})
+vim.api.nvim_set_keymap('n','rn','<Plug>(coc-rename)',{})
+vim.api.nvim_set_keymap('n','gd','<Plug>(coc-definition)',{})
+vim.api.nvim_set_keymap('n','gr','<Plug>(coc-references)',{})
+vim.api.nvim_set_keymap('n','gi','<Plug>(coc-implementation)',{})
+vim.api.nvim_set_keymap('n','gy','<Plug>(coc-type-definition)',{})
+vim.cmd( -- use <tab> for trigger completion and navigate to the next complete item
+  [[
+    function! s:check_back_space() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction
+
+    inoremap <silent><expr> <Tab>
+          \ pumvisible() ? "\<C-n>" :
+          \ <SID>check_back_space() ? "\<Tab>" :
+          \ coc#refresh()
+  ]]
+)
+vim.api.nvim_set_keymap('n','<leader>qf','<Plug>(coc-fix-current)',{})
+vim.api.nvim_set_keymap('n','K',':call CocActionAsync(\'doHover\')<Enter>',{})
+-- TELESCOPE
+vim.api.nvim_set_keymap('n','<leader>ff','<cmd>Telescope find_files<cr>',{noremap = true})
+vim.api.nvim_set_keymap('n','<leader>fg','<cmd>Telescope live_grep<cr>',{noremap = true})
+vim.api.nvim_set_keymap('n','<leader>fb','<cmd>Telescope buffers<cr>',{noremap = true})
+vim.api.nvim_set_keymap('n','<leader>fh','<cmd>Telescope help_tags<cr>',{noremap = true})
+
 -- PLUGINS
 require('plug')
 require("nvim-tree").setup({
@@ -92,3 +122,4 @@ require('nvim-cursorline').setup {
     hl = { underline = true },
   }
 }
+require('telescope').load_extension('fzf')

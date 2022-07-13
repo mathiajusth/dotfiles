@@ -51,6 +51,18 @@ return packer.startup(function(use)
       use "ryanoasis/vim-devicons" -- after plugins that use it (nerdtree)
 
       use {'neoclide/coc.nvim', branch = 'release'}
+
+      use 'nvim-treesitter/nvim-treesitter' -- TODO: Don't forget to run `:TSInstall all` after installation of the plugink
+
+      use { -- TODO check githun and `:checkhealth telescope` for dependencies and install them
+        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        requires = { 'nvim-lua/plenary.nvim', 'kyazdani42/nvim-web-devicons'}
+      }
+
+      use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
+      
+      
   -- === Yura's plugins ===
       ---- fonts
 
