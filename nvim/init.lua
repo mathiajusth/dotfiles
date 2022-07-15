@@ -76,7 +76,7 @@ vim.cmd('let g:NERDSpaceDelims = 1')
 -- COC
 vim.api.nvim_set_keymap('n','[e','<Plug>(coc-diagnostic-prev)',{})
 vim.api.nvim_set_keymap('n',']e','<Plug>(coc-diagnostic-next)',{})
-vim.api.nvim_set_keymap('n','rn','<Plug>(coc-rename)',{})
+vim.api.nvim_set_keymap('n','<leader>rn','<Plug>(coc-rename)',{})
 vim.api.nvim_set_keymap('n','gd','<Plug>(coc-definition)',{})
 vim.api.nvim_set_keymap('n','gr','<Plug>(coc-references)',{})
 vim.api.nvim_set_keymap('n','gi','<Plug>(coc-implementation)',{})
@@ -98,7 +98,7 @@ vim.cmd( -- use <tab> for trigger completion and navigate to the next complete i
 vim.api.nvim_set_keymap('n','<leader>qf','<Plug>(coc-fix-current)',{})
 -- TELESCOPE
 vim.api.nvim_set_keymap('n','<leader>s','<cmd>Telescope find_files<cr>',{noremap = true})
-vim.api.nvim_set_keymap('n','<leader>g','<cmd>Telescope live_grep<cr>',{noremap = true})
+vim.api.nvim_set_keymap('n','<leader>fg','<cmd>Telescope live_grep<cr>',{noremap = true})
 vim.api.nvim_set_keymap('n','<leader>fb','<cmd>Telescope buffers<cr>',{noremap = true})
 vim.api.nvim_set_keymap('n','<leader>fh','<cmd>Telescope help_tags<cr>',{noremap = true})
 
