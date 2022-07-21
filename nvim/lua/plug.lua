@@ -54,7 +54,7 @@ return packer.startup(function(use)
 
       use {'neoclide/coc.nvim', branch = 'release'}
 
-      use 'nvim-treesitter/nvim-treesitter' -- TODO: Don't forget to run `:TSInstall all` after installation of the plugink
+      use 'nvim-treesitter/nvim-treesitter' -- TODO: Don't forget to run `:TSInstall all` after installation of the plugins
 
       use { -- TODO check githun and `:checkhealth telescope` for dependencies and install them
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
@@ -65,7 +65,8 @@ return packer.startup(function(use)
 
       use 'airblade/vim-gitgutter'
 
-      use {'jwoudenberg/elm-pair', rtp = 'editor-integrations/neovim'}
+      -- https://github.com/jwoudenberg/elm-pair/issues/23
+      -- use {'jwoudenberg/elm-pair', rtp = 'editor-integrations/neovim'}
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins.
