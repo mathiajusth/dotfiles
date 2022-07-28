@@ -1,0 +1,27 @@
+{
+  "languageserver": {
+      "elmLS": {
+        "command": "elm-language-server",
+        "filetypes": ["elm"],
+        "rootPatterns": ["elm.json"],
+        "trace.server": "verbose",
+        "initializationOptions": {
+          "elmPath": "elm", // optional
+          "elmFormatPath": "elm-format", // optional
+          "elmTestPath": "elm-test", // optional
+          "elmAnalyseTrigger": "change" // optional
+        }
+      },
+      "metals": {
+        "command": "metals-vim",
+        "rootPatterns": ["build.sbt"],
+        "filetypes": ["scala", "sbt"]
+      }
+  },
+
+  "codeLens.enable": false,
+
+  "coc.preferences.formatOnSaveFiletypes": [
+     // "elm"
+  ]
+}
