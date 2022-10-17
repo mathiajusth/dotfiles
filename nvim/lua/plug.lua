@@ -65,6 +65,7 @@ return packer.startup(function(use)
 
       use 'airblade/vim-gitgutter'
 
+      use 'lukas-reineke/indent-blankline.nvim'
       -- https://github.com/jwoudenberg/elm-pair/issues/23
       -- use {'jwoudenberg/elm-pair', rtp = 'editor-integrations/neovim'}
 

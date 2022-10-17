@@ -1,20 +1,27 @@
 --[[ init.lua ]]
 
+
 -- LEADER
 -- These keybindings need to be defined before the first /
 -- is called; otherwise, it will default to "\"
 vim.g.mapleader = " "
-vim.g.localleader = ","
+vim.g.maplocalleader = ";"
 
 -- MISC ??
 vim.opt.updatetime = 250              -- after X milliseconds of not typing swp file is created
 
 vim.opt.foldmethod = "indent"         
-vim.opt.foldenable = false
+vim.opt.foldenable = true
 
 vim.api.nvim_set_option("clipboard","unnamed") -- copy to system clipboard
 
 vim.api.nvim_set_keymap('n', '<leader>nt', ':NvimTreeToggle<Enter>', {}) -- nvim-tree
+
+vim.api.nvim_set_keymap('n','<Leader>t',':tabnew<Enter>',{noremap = true})
+
+vim.cmd("autocmd FileType elm inoremap <localleader>ar ->")
+vim.cmd("autocmd FileType scala inoremap <localleader>ar =>")
+
 -- vim.api.nvim_set_keymap('n', '<leader>nt', ':NERDTree<Enter>', {})    -- nerd-tree
 
 vim.api.nvim_set_keymap('n', '<leader>w', ':w<Enter>', {})    -- nerd-tree
@@ -41,9 +48,9 @@ vim.api.nvim_set_keymap('n','<CR>',':noh<CR>',{noremap = true})
 
 -- WHITESPACE
 vim.opt.expandtab = true
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
 
 -- COLORSCHEME
 vim.cmd("colorscheme solarized")
@@ -53,11 +60,6 @@ vim.g.lightline = { colorscheme = "solarized", }
 -- VIEW ORGANIZATION
 vim.opt.laststatus = 2
 
----- tab Switching
-vim.api.nvim_set_keymap('n',',','<C-w><C-w>',{noremap = true})
-vim.cmd("call submode#enter_with('tab-switching', 'n', '', '<Leader><Tab>', 'gt')")
-vim.cmd("call submode#map('tab-switching', 'n', '', '<Tab>', 'gt')")
-
 ---- windows spliting
 vim.api.nvim_set_keymap('n','<Leader>hs',':sp<Enter><C-w><C-w>',{noremap = true})
 vim.api.nvim_set_keymap('n','<Leader>vs',':vsp<Enter><C-w><C-w>',{noremap = true})
@@ -66,6 +68,11 @@ vim.cmd("call submode#map('resize', 'n', '', 'j', ':res +3<CR>')")
 vim.cmd("call submode#map('resize', 'n', '', 'k', ':res -3<CR>')")
 vim.cmd("call submode#map('resize', 'n', '', 'h', ':vertical resize -3<CR>')")
 vim.cmd("call submode#map('resize', 'n', '', 'l', ':vertical resize +3<CR>')")
+
+---- tab Switching
+vim.api.nvim_set_keymap('n',',','<C-w><C-w>',{noremap = true})
+vim.cmd("call submode#enter_with('tab-switching', 'n', '', '<Leader><Tab>', 'gt')")
+vim.cmd("call submode#map('tab-switching', 'n', '', '<Tab>', 'gt')")
 
 -- NERDCommenter
 vim.api.nvim_set_keymap('n','<Leader>\'','<Leader>c<Space>',{})
@@ -96,6 +103,7 @@ vim.cmd( -- use <tab> for trigger completion and navigate to the next complete i
   ]]
 )
 vim.api.nvim_set_keymap('n','<leader>qf','<Plug>(coc-fix-current)',{})
+vim.cmd('autocmd BufWritePre *.elm call CocAction(\'format\')')
 -- TELESCOPE
 vim.api.nvim_set_keymap('n','<leader>s','<cmd>Telescope find_files<cr>',{noremap = true})
 vim.api.nvim_set_keymap('n','<leader>fg','<cmd>Telescope live_grep<cr>',{noremap = true})
@@ -111,7 +119,10 @@ vim.api.nvim_set_keymap('n','<leader>gp',':GitGutterPreviewHunk<Enter>',{noremap
 require('plug')
 require('nvim-tree').setup({
   filters = {
-    dotfiles = true,
+    dotfiles = false,
+  },
+  git = {
+    ignore = false
   },
   hijack_cursor = true,
 })
@@ -128,3 +139,12 @@ require('nvim-cursorline').setup {
   }
 }
 require('telescope').load_extension('fzf')
+
+-- https://github.com/lukas-reineke/indent-blankline.nvim
+-- Indent Guides
+vim.opt.list = true
+vim.opt.listchars:append "eol:↴"
+
+require("indent_blankline").setup {
+    show_end_of_line = true,
+}
