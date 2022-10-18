@@ -1,15 +1,11 @@
 --[[ init.lua ]]
-
-
 -- LEADER
 -- These keybindings need to be defined before the first /
 -- is called; otherwise, it will default to "\"
 vim.g.mapleader = " "
 vim.g.maplocalleader = ";"
-
 -- MISC ??
 vim.opt.updatetime = 250              -- after X milliseconds of not typing swp file is created
-
 vim.opt.foldmethod = "indent"         
 vim.opt.foldenable = true
 
@@ -55,7 +51,6 @@ vim.opt.softtabstop = 4
 -- COLORSCHEME
 vim.cmd("colorscheme solarized")
 vim.g.lightline = { colorscheme = "solarized", }
--- vim.opt.background = "light"
 
 -- VIEW ORGANIZATION
 vim.opt.laststatus = 2
@@ -78,9 +73,22 @@ vim.cmd("call submode#map('tab-switching', 'n', '', '<Tab>', 'gt')")
 vim.api.nvim_set_keymap('n','<Leader>\'','<Leader>c<Space>',{})
 vim.api.nvim_set_keymap('v','<Leader>\'','<Leader>c<Space>',{})
 vim.cmd('let g:NERDSpaceDelims = 1')
-          
 
 -- COC
+function _G.check_back_space()
+    local col = vim.fn.col('.') - 1
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+end
+local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
+vim.keymap.set("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
+-- vim.keymap.set("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
+vim.keymap.set("i", "§", "coc#refresh()", {silent = true, expr = true})
+-- vim.keymap.set("i", "<TAB>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<TAB>"]], opts)
+-- vim.keymap.set("i","<TAB>",[[coc#pum#visible() ? "\<C-n>" : v:lua.check_back_space() ? "\<TAB>" : coc#refresh()]],opts)
+
+
+
+
 vim.api.nvim_set_keymap('n','[e','<Plug>(coc-diagnostic-prev)',{})
 vim.api.nvim_set_keymap('n',']e','<Plug>(coc-diagnostic-next)',{})
 vim.api.nvim_set_keymap('n','<leader>rn','<Plug>(coc-rename)',{})
@@ -89,19 +97,6 @@ vim.api.nvim_set_keymap('n','gr','<Plug>(coc-references)',{})
 vim.api.nvim_set_keymap('n','gi','<Plug>(coc-implementation)',{})
 vim.api.nvim_set_keymap('n','gy','<Plug>(coc-type-definition)',{})
 vim.api.nvim_set_keymap('n','<leader>k',':call CocActionAsync(\'doHover\')<Enter>',{})
-vim.cmd( -- use <tab> for trigger completion and navigate to the next complete item
-  [[
-    function! s:check_back_space() abort
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction
-
-    inoremap <silent><expr> <Tab>
-          \ pumvisible() ? "\<C-n>" :
-          \ <SID>check_back_space() ? "\<Tab>" :
-          \ coc#refresh()
-  ]]
-)
 vim.api.nvim_set_keymap('n','<leader>qf','<Plug>(coc-fix-current)',{})
 vim.cmd('autocmd BufWritePre *.elm call CocAction(\'format\')')
 -- TELESCOPE

@@ -23,5 +23,7 @@
 
   "coc.preferences.formatOnSaveFiletypes": [
     "elm"
-  ]
+  ],
+
+  "suggest.noselect": true
 }
