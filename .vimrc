@@ -16,6 +16,7 @@
       " Session
         Plug 'xolox/vim-session'
         Plug 'xolox/vim-misc'
+          :let g:session_autoload = 'no'
 
       " Haskell
         Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
@@ -102,6 +103,7 @@
           let g:ycm_add_preview_to_completeopt = 1
           let g:ycm_autoclose_preview_window_after_completion = 1
           let g:ycm_semantic_triggers = {'haskell' : ['.'], 'elm' : ['.']}
+          let g:ycm_auto_hover=''
 
         " this one is better with necoghc (haskell autocompletion)
         " Plug 'Shougo/deoplete.nvim' " needs sudo apt-get install python3-pip | pip3 install --user pynvim
@@ -189,6 +191,8 @@
 " =========
   " Others
     filetype plugin indent on
+    autocmd Filetype conf setfile conf
+    set scrolloff=4
     set tabstop=2								" tabsize = 2 spaces
     set shiftwidth=2
 		set expandtab
@@ -199,8 +203,6 @@
     " https://stackoverflow.com/questions/1675688/make-vim-show-all-white-spaces-as-a-character
     set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 
-    " set background=light
-    " colorscheme solarized
     set hlsearch
     set updatetime=250
     let mapleader = " "
@@ -216,6 +218,10 @@
     map <Shift>v <S-v>
 		" Search & Replace
     nnoremap riw "xyiw:%s/<C-r>x//gc<Left><Left><Left>
+  " Colorscheme
+    " set background=light
+    colorscheme solarized
+    set background=dark
 
   " Tsu & ALE 
     autocmd FileType typescript nmap <silent><buffer> <Leader>rs <Plug>(TsuquyomiRenameSymbol)
@@ -290,19 +296,19 @@
 
   " View Organization
     " BUFFER switching
-        nnoremap , <C-w><C-w>
+      nnoremap , <C-w><C-w>
     " TAB switching
       call submode#enter_with('tab-switching', 'n', '', '<Leader><Tab>', 'gt')
       call submode#map('tab-switching', 'n', '', '<Tab>', 'gt')
     " WINDOW splitting
-      nnoremap <Leader>hs :sp<Enter>
-      nnoremap <Leader>vs :vsp<Enter>
+      nnoremap <Leader>hs :sp<Enter><C-w><C-w>
+      nnoremap <Leader>vs :vsp<Enter><C-w><C-w>
 
       call submode#enter_with('resize', 'n', '', '<Leader>b')
-      call submode#map('resize', 'n', '', 'j', ':res +1<CR>')
-      call submode#map('resize', 'n', '', 'k', ':res -1<CR>')
-      call submode#map('resize', 'n', '', 'h', ':vertical resize -1<CR>')
-      call submode#map('resize', 'n', '', 'l', ':vertical resize +1<CR>')
+      call submode#map('resize', 'n', '', 'j', ':res +3<CR>')
+      call submode#map('resize', 'n', '', 'k', ':res -3<CR>')
+      call submode#map('resize', 'n', '', 'h', ':vertical resize -3<CR>')
+      call submode#map('resize', 'n', '', 'l', ':vertical resize +3<CR>')
 
   " Custom Text Formatting
     " brackets completion
@@ -409,7 +415,7 @@
 
     function! LightLineFugitive()
       if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
-        let _ = fugitive#head()
+        let _ = FugitiveHead()
         return winwidth(0) > 90 && strlen(_) ? "\ue0a0 "._ : ''
       endif
       return ''
