@@ -8,6 +8,7 @@ vim.g.maplocalleader = ";"
 vim.opt.updatetime = 250              -- after X milliseconds of not typing swp file is created
 vim.opt.foldmethod = "indent"         
 vim.opt.foldenable = true
+vim.opt.hidden = true
 
 vim.api.nvim_set_option("clipboard","unnamed") -- copy to system clipboard
 
@@ -15,12 +16,19 @@ vim.api.nvim_set_keymap('n', '<leader>nt', ':NvimTreeToggle<Enter>', {}) -- nvim
 
 vim.api.nvim_set_keymap('n','<Leader>t',':tabnew<Enter>',{noremap = true})
 
+-- shortcuts
 vim.cmd("autocmd FileType elm inoremap <localleader>ar ->")
 vim.cmd("autocmd FileType scala inoremap <localleader>ar =>")
+vim.cmd("autocmd FileType javascript inoremap <localleader>ar =>")
+vim.cmd("autocmd FileType typescript inoremap <localleader>ar =>")
 
 -- vim.api.nvim_set_keymap('n', '<leader>nt', ':NERDTree<Enter>', {})    -- nerd-tree
 
-vim.api.nvim_set_keymap('n', '<leader>w', ':w<Enter>', {})    -- nerd-tree
+vim.api.nvim_set_keymap('n', '<leader>w', ':w<Enter>', {})
+
+vim.api.nvim_set_keymap('i', '<localleader>h', 'Debug.todo "TODO"', {})
+vim.cmd('autocmd FileType elm inoremap <localleader>l Debug.log ">>>"')
+vim.cmd("autocmd FileType javascript inoremap <localleader>l console.log('TODO')")
 
 -- CONTEXT
 vim.opt.number = true                 -- Show line numbers
@@ -73,6 +81,9 @@ vim.cmd("call submode#map('tab-switching', 'n', '', '<Tab>', 'gt')")
 vim.api.nvim_set_keymap('n','<Leader>\'','<Leader>c<Space>',{})
 vim.api.nvim_set_keymap('v','<Leader>\'','<Leader>c<Space>',{})
 vim.cmd('let g:NERDSpaceDelims = 1')
+vim.cmd('let g:NERDDefaultAlign = \'left\'')
+
+
 
 -- COC
 function _G.check_back_space()
@@ -98,7 +109,7 @@ vim.api.nvim_set_keymap('n','gi','<Plug>(coc-implementation)',{})
 vim.api.nvim_set_keymap('n','gy','<Plug>(coc-type-definition)',{})
 vim.api.nvim_set_keymap('n','<leader>k',':call CocActionAsync(\'doHover\')<Enter>',{})
 vim.api.nvim_set_keymap('n','<leader>qf','<Plug>(coc-fix-current)',{})
-vim.cmd('autocmd BufWritePre *.elm call CocAction(\'format\')')
+-- vim.cmd('autocmd BufWritePre *.elm call CocAction(\'format\')')
 -- TELESCOPE
 vim.api.nvim_set_keymap('n','<leader>s','<cmd>Telescope find_files<cr>',{noremap = true})
 vim.api.nvim_set_keymap('n','<leader>fg','<cmd>Telescope live_grep<cr>',{noremap = true})
